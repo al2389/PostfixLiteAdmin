@@ -1,6 +1,5 @@
 <?php
 
-//if (count($_REQUEST) == 0){
 	if (!sqlite_table_exists($dbHandle, 'domain')){
   		$sqlCreateTable = "CREATE TABLE domain (
   		domain_id INTEGER PRIMARY KEY,
@@ -44,14 +43,14 @@
   		FOREIGN KEY(email_id) REFERENCES mailbox(email_id));";
   		$dbHandle->exec($sqlCreateTable);
 	}
-//}
+
 
 
 
 function sqlite_table_exists(&$dbHandle, $table){
 	$ret = true;
 	try {
-    	$result = $dbHandle->query("select 1 from $table");
+    	$result = $dbHandle->query("select 1 from $table limit 1");
     	if ($result === false) $ret = false;
 	} catch (Exception $e){
 		die('Error : ' .$e->getMessage());

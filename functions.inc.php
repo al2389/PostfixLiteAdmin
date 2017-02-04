@@ -1,7 +1,5 @@
 <?php
 
-//include_once('inc/database.inc.php');
-
 function ByteSize($bytes) {
   $size = $bytes / 1000;
   if($size < 1024) {
