@@ -9,6 +9,10 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 	// absolute path of the directories
 	$wwwdir = "/var/www/html/PostfixLiteAdmin";
 	$sitedir = "/var/www/html/PostfixLiteAdmin";
+	# The $sqlite_dir should be writable by the web server/php process.
+	# I used : chown -R www-data:www-data /etc/postfix/sqlite-db
+	#          chmod 777 /etc/postfix/sqlite-db
+	#          chmod 644 /etc/postfix/sqlite-db/vmail.sqlite3
 	$sqlite_dir = "/etc/postfix/sqlite-db";
 }
 $sqlite_database = "vmail.sqlite3";
