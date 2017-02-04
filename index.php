@@ -9,7 +9,8 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="/PostfixLiteAdmin/css/jumbotron-narrow.css">
+<!-- <link rel="stylesheet" href="/PostfixLiteAdmin/css/jumbotron-narrow.css"> -->
+<link rel="stylesheet" href="css/jumbotron-narrow.css">
 		
 <title></title>
 <script> 
@@ -24,13 +25,13 @@ $(function(){
 		<div id="header"></div>
 
 		<?php
-		define ('NO_CHANGE_PW', 'tr4vrFlR14d2U53K05UZAm5H1iE68p6t');
-		define ("PAUSED", 1);
-		define ("ERROR_PAUSE", 2);
+		define ('NO_CHANGE_PW', 'tr4vrFlR14d2U53K05UZAm5H1iE68p6t'); 		// This user password = no chnage in password
+		define ("PAUSED", 1);                                               // seconds to pause after echo a normal message 
+		define ("ERROR_PAUSE", 2);                                          // seconds to pause after echo an error message 
 		
 		session_start();
 		include_once('config.inc.php');
-		
+			
         try{
 			$dbHandle = new PDO("sqlite:$sqlite_dir/$sqlite_database");
 		}catch( PDOException $exception ){
@@ -38,8 +39,11 @@ $(function(){
     		die($exception->getMessage());
 		}
 		
-		
 		include_once('functions.inc.php');
+		// check and create tables every time the page is accessed but not refered back by any inc file.
+		if (count($_REQUEST) == 0 and !isset($_SERVER['HTTP_REFERER']))
+			include_once('inc/database.inc.php');
+
 
 		if (!empty($_GET)) {
 			if ($_GET['page'] == 'create_user') {
@@ -75,13 +79,10 @@ $(function(){
 			}
 		} else {
 		  	echo "<h2>Domains</h2>";
-		  	//echo "<a href='index.php?page=add_domain'>Add Domain</a>";
 		  	echo "<a href='index.php?page=edit_domain&domain_id=0'>Add Domain</a>";
-		  
-		  	$row_count = "0";
-		  	$line_count = "0";
-		  
 		  	echo "<table class='table table-striped'>";
+		  
+		  	$line_count = "0";
 		  	$sqlShowBlocked = 'SELECT * FROM domain;';
 		  	$result = $dbHandle->query($sqlShowBlocked);
 		  	if (!$result){
@@ -91,7 +92,6 @@ $(function(){
 		    	$domain = $entry['domain'];
 		    	$domain_id = $entry['domain_id'];;
 		    	$description = $entry['description'];
-		    	$row_count++;
 		    	$line_count++;
 		    	echo "<tr>
 		    			<td>$line_count</td>

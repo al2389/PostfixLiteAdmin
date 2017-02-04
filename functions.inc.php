@@ -1,7 +1,6 @@
 <?php
 
-//include_once('config.inc.php');
-include_once('inc/database.inc.php');
+//include_once('inc/database.inc.php');
 
 function ByteSize($bytes) {
   $size = $bytes / 1000;

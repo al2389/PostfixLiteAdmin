@@ -6,7 +6,7 @@
 	    	</div> 
 			<p>PostfixLiteAdmin | <a href='http://github.com/mattrude/PostfixLiteAdmin'>Source</a></p>
 	    	<div class='pull-right'> 
-				<p>Modified version by Andy L. in 2017</p> 
+				<p>Modified version by Andy L. | <a href='https://github.com/al2389/PostfixLiteAdmin'>Source</a></p> 
 	    	</div> 
 			
 		<!--</footer> -->

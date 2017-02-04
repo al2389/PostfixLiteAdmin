@@ -24,7 +24,7 @@ if (empty($_POST['goto'])) {
     	$insQuery = "INSERT INTO alias (email_id, goto, created, modified, active )VALUES
     				 ($email_id, '$goto', datetime('NOW', 'localtime'), datetime('NOW', 'localtime'), '$active')";
     	$dbHandle->exec($insQuery);
-    	echo "<h2>Alias added</h2>";
+    	echo "<h2>Alias added.</h2>";
 	}
 }
 $referer = $_SESSION['referer_alias'];
