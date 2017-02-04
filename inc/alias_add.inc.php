@@ -1,48 +1,53 @@
 <?php
 
-include_once('../functions.inc.php');
+	//include_once('../functions.inc.php');
+	include_once(dirname(__FILE__).'/../functions.inc.php');		// to fix Windows relative path
 
-if (!isset($_REQUEST['domain']))
-        {
-         $_REQUEST['domain'] = 'dead';
-        }
-$domain = $_REQUEST['domain'];
+	if (!isset($_REQUEST['domain_id'])){
+		die("domain_id is not passed.");
+	}
+	$domain_id = $_REQUEST['domain_id'];
 
-if (!empty($_POST['goto'])) {
-        $address = $_POST['address'];
-        $goto = $_POST['goto'];
-        $domain = $_POST['domain'];
-        $active = $_POST['active'];
-        $insQuery = "INSERT INTO alias VALUES ('$address@$domain', '$goto', '$domain', datetime('NOW', 'localtime'), datetime('NOW', 'localtime'), '$active')";
-        $dbHandle->exec($insQuery);
-        //echo $insQuery;
-        echo "<head><meta HTTP-EQUIV='REFRESH' content='0; url=/PostfixLiteAdmin/index.php?page=domain&domain=$domain'></head>";
-} ?>
-
-<form action="#" method="post">
-<table><tr><td><table border='0'>
-<tr><td>Alias Email Address: </td><td><input type="text" name="address" />@<td><select name='domain'>;
-  <?php $sqlAllDomains = "SELECT * FROM domain;";
-  $result3 = $dbHandle->query($sqlAllDomains);
-  while ($entry3 = $result3->fetch()) {
-    $alldomain = $entry3['domain'];
-    if ($domain == $alldomain) { $selected = 'selected'; } else { $selected = '';}
-    echo "<option value='".$alldomain."' $selected >".$alldomain."</option>";
-  } ?>
-</select></td></tr>
-<tr><td>Address To Send Mail To: </td><td><select name='goto'>";
-  <?php $sqlAllDomains = "SELECT * FROM mailbox;";
-  $result4 = $dbHandle->query($sqlAllDomains);
-  while ($entry4 = $result4->fetch()) {
-    $alladdresses = $entry4['username'];
-    echo "<option value='".$alladdresses."' $selected >".$alladdresses."</option>";
-  } ?>
-</select></td></tr>
-
-<tr><td>Active: </td><td><input type="checkbox" checked name="active" /></td></tr>
-</td></tr></table>
-<input type="submit" value="Create Alias" /></form>
-<?php
-
-
+	if (!isset($_REQUEST['email_id'])){
+		die("email_id is not passed.");
+	}
+	$email_id = $_REQUEST['email_id'];
+	$_SESSION['referer_alias'] = $_SERVER['HTTP_REFERER'];
 ?>
+
+<form action='index.php?page=add_alias_save&email_id="<?php echo $email_id?>' method='post'>
+<table border='0'>
+	<tr>
+		<td>Alias Email Address: </td>
+		<td>
+			<select name='email_id'>";
+				<?php $sqlAllDomains = "SELECT * FROM mailbox where domain_id = $domain_id;";
+					$result4 = $dbHandle->query($sqlAllDomains);
+  					while ($entry4 = $result4->fetch()) {
+    					$allemails = $entry4['email'];
+    					$allemail_id = $entry4['email_id'];
+    					if ($allemail_id == $email_id){
+   							echo "<option value='".$allemail_id."' selected>".$allemails."</option>";
+						} else {
+							if ($email_id !== ''){
+								echo "<option value='".$allemail_id."' disabled >".$allemails."</option>";
+							} else {
+								echo "<option value='".$allemail_id."' >".$allemails."</option>";
+							}
+						}
+  					} 
+  				?>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td>Send Mail To: </td>
+		<td><input type="text" name="goto" /></td>
+	</tr>
+
+	<tr>
+		<td>Active: </td>
+		<td><input type="checkbox" checked name="active" /></td>
+	</tr>
+</table>
+<input type="submit" value="Create Alias" /></form>

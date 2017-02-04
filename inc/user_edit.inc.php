@@ -1,89 +1,121 @@
 <?php
-if (!isset($_REQUEST['domain']))
-  {
-    $_REQUEST['domain'] = 'dead';
-  }
-$domain = $_REQUEST['domain'];
+	if (!isset($_REQUEST['email_id'])){
+		die("email_id is not passed.");
+	}
+	$email_id = $_REQUEST['email_id'];
+	$domain = getDomainFromEmailId($email_id, 'domain');
+	$domain_id = getDomainFromEmailId($email_id, 'domain_id');
 
-if (!isset($_REQUEST['user']))
-  {
-    $_REQUEST['user'] = 'dead';
-  }
-$user = $_REQUEST['user'];
+	$_SESSION['referer_user'] = $_SERVER['HTTP_REFERER'];
 
-if (!empty($_POST['local_part'])) {
-  $username = $_POST['username'];
-  $password = $_POST['password'];
-  $name = $_POST['name'];
-  $maildir = $_POST['maildir'];
-  $local_part = $_POST['local_part'];
-  $modified = $_POST['modified'];
-  $quota = $_POST['quota'];
-  $active_post = $_POST['active'];
-  if ($active_post == 'on') {$active=1;} else {$active=0;}
-  $updQuery = "UPDATE mailbox SET username = '$local_part@$domain', password = '$password', name = '$name', local_part = '$local_part', domain = '$domain', quota = '$quota', modified = '$modified', modified = datetime('NOW', 'localtime'), active = $active WHERE username = '$user';";
-  $dbHandle->exec($updQuery);
-  echo "<h2>User updated</h2>";
-}
+	$q = "SELECT * FROM mailbox WHERE email_id = $email_id;";
+	$result = $dbHandle->query($q);
+	$entry = $result->fetch();
 
-$sqlShowBlocked = "SELECT * FROM mailbox WHERE domain = '$domain' AND username = '$user';";
-$result = $dbHandle->query($sqlShowBlocked);
-$entry = $result->fetch();
-
-$username = $entry['username'];
-$password = $entry['password'];
-$name = $entry['name'];
-$maildir = $entry['maildir'];
-$local_part = $entry['local_part'];
-$created = $entry['created'];
-$modified = $entry['modified'];
-$quota = $entry['quota'];
-$active = $entry['active'];
-if ($active == 1) {$active='checked';} else {$active='';}
-
-echo "<form action='index.php?page=edit_user&domain=".$domain."&user=".$user."' method='post'>";
-echo "<table border='0'>";
-echo "<tr><td>Editing User: </td><td><strong>$name</strong></td></tr>";
-echo "<tr><td>Name: </td><td><input type='text' value='".$name."' name='name' /></td></tr>";
-echo "<tr><td>User Name: </td><td><input type='text' value='".$local_part."' name='local_part' /></td></tr>";
-echo "<tr><td>Domain: </td><td><select name='domain'>";
-$sqlAllDomains = "SELECT * FROM domain;";
-$result3 = $dbHandle->query($sqlAllDomains);
-while ($entry3 = $result3->fetch()) {
-  $alldomain = $entry3['domain'];
-  if ($domain == $alldomain) { $selected = 'selected'; } else { $selected = '';}
-  echo "<option value='".$alldomain."' $selected >".$alldomain."</option>";
-}
-echo "</select></td></tr>";
-echo "<tr><td>Email Address: </td><td>$username</td></tr>";
-echo "<tr><td>Password: </td><td><input type='text' value='".$password."' name='password' /></td></tr>";
-echo "<tr><td>Mail Directory: </td><td><small>$maildir</small></td></tr>";
-echo "<tr><td>Quota: </td><td><input type='text' size='5' value='".$quota."' name='quota' />MB</td></tr>";
-echo "<tr><td>User Active?: </td><td><input type='checkbox' $active name='active' /></td></tr>";
-echo "<tr><td>Last Updated: </td><td>$modified</td></tr>";
-echo "<tr><td>Created on: </td><td>$created</td></tr>";
-echo "</td></tr></table>";
-echo "<input type='submit' value='Update User' /></form>";
-
-echo "<h3>Aliases for $name</h3>";
-echo "<a href='index.php?page=add_alias&domain=$domain'>Add Alias</a><br />";
-echo "<table class='table table-striped'>";
-echo "<tr><td></td><td>Deliver Mail Sent To</td><td>Modified Last</td><td>Active</td><td></td><td></tr>";
-$sqlShowAlias = "SELECT * FROM alias WHERE goto = '$username';";
-$result5 = $dbHandle->query($sqlShowAlias);
-$row_count = 0;
-$line_count = 0;
-while ($entry5 = $result5->fetch()) {
-  $row_color = ($row_count % 2) ? $color1 : $color2;
-  $address = $entry5['address'];
-  $goto_post = $entry5['goto'];
-  $modified = $entry5['modified'];
-  $active = $entry5['active'];
-  if ($active == 1) {$active='check';} else {$active='del';}
-
-  $line_count++;
-  echo "<tr bgcolor='$row_color'><td>$line_count</td><td><a href='index.php?page=edit_alias&domain=" .$domain. "&address=" .$address. "&user=" .$user. "'>$address</a></td><td><small>$modified<small></td><td><center><div id=$active></div></center></td><td><a href='ndex.php?page=del_alias&address=$address&domain=$domain'><img border=0 src='images/icon_del.png'></a></td></tr>";
-}
-echo "</table></pre>";
-
+	$email = $entry['email'];
+	$password = NO_CHANGE_PW;
+	$name = $entry['name'];
+	$maildir = $entry['maildir'];
+	$local_part = $entry['local_part'];
+	$created = $entry['created'];
+	$modified = $entry['modified'];
+	$quota = $entry['quota'] / 1024;		// KB to MB
+	$active = $entry['active'];
+	if ($active == 1) {$active='checked';} else {$active='';}
 ?>
+
+<form action='index.php?page=edit_user_save&email_id=<?php echo $email_id?>' method='post'>
+<table border='0'>
+	<tr><td>Editing User: </td><td><strong><?php echo $name ?></strong></td></tr>
+	<tr><td>Name: </td><td><input type='text' value='<?php echo $name ?>' name='name' /></td></tr>
+	<tr><td>User Name: </td><td><input type='text' value='<?php echo $local_part ?>' name='local_part' /></td></tr>
+	<tr><td>Domain: </td>
+		<td>
+			<select name='domain'>"
+				<?php
+					$sqlAllDomains = "SELECT * FROM domain;";
+					$result3 = $dbHandle->query($sqlAllDomains);
+					while ($entry3 = $result3->fetch()) {
+  						$alldomain = $entry3['domain'];
+  						if ($domain == $alldomain) {
+  							$selected = 'selected'; 
+  							$disabled = '';
+  						} else {
+  							$selected = '';
+  							$disabled = 'disabled';
+  						}
+  						echo "<option value='".$alldomain."' $selected $disabled >".$alldomain."</option>";
+					} 
+				?>
+			</select>
+		</td>
+	</tr>
+	<tr><td>Email Address: </td><td><?php echo $email?></td></tr>
+	<tr><td>Password: </td><td><input type='password' value='<?php echo $password?>' name='password' onClick='this.setSelectionRange(0, this.value.length)' /></td></tr>
+	<tr>
+		<td>Mail Directory: </td>
+		<td><?php echo $maildir?><input type='hidden' value='.$maildir.' name='maildir' /></td>
+	</tr>
+	<tr>
+		<td>Quota: </td>
+		<td><input type='text' size='5' value='<?php echo $quota?>' name='quota' />MB</td>
+	</tr>
+	<tr>
+		<td>User Active?: </td>
+		<td><input type='checkbox' <?php echo $active?> name='active' /></td>
+	</tr>
+	<tr>
+		<td>Last Updated: </td>
+		<td><?php echo $modified?> <input type='hidden' value='<?php echo $modified?>' name='modified' /></td>
+	</tr>
+	<tr>
+		<td>Created on: </td>
+		<td><?php echo $created?> <input type='hidden' value='.$created.' name='created' /></td>
+	</tr>
+</table>
+<input type='submit' value='Update User' /></form>
+
+
+<br>
+<h3>Aliases for <?php echo $name?></h3>
+<?php
+	$q = "select email_id from alias where email_id = $email_id";
+	$chk = $dbHandle->query($q);
+	$entry = $chk->fetch();
+	if ( $entry === false ){
+		echo "<a href='index.php?page=add_alias&domain_id=$domain_id&email_id=$email_id'>Add Alias</a><br />";
+	}
+?>
+<table class='table table-striped'>
+	<tr><td></td><td>Mails Alias To</td><td>Modified Last</td><td>Active</td><td></td><td></tr>
+	
+	<?php 
+		$sqlShowAlias = "SELECT a.*, m.email FROM alias a, mailbox m 
+							WHERE a.email_id = $email_id 
+							and m.email_id = a.email_id;";
+		$result5 = $dbHandle->query($sqlShowAlias);
+		$row_count = 0;
+		$line_count = 0;
+		while ($entry5 = $result5->fetch()) {
+			$row_color = ($row_count % 2) ? $color1 : $color2;
+			$email = $entry5['email'];
+			$goto_post = $entry5['goto'];
+			$modified = $entry5['modified'];
+			$active = $entry5['active'];
+			if ($active == 1) {$active='check';} else {$active='del';}
+
+			$line_count++;
+  			echo "<tr bgcolor='$row_color'>
+  					<td>$line_count</td>
+  					<td>
+  						<a href='index.php?page=edit_alias&email_id=".$email_id."'>$goto_post</a>
+  					</td>
+  					<td><small>$modified<small></td>
+  					<td><center><div id=$active></div></center></td>
+  					<td>
+  						<a href='index.php?page=del_alias&email_id=$email_id'><img border=0 src='images/icon_del.png'></a>
+  					</td>
+  			</tr>";
+		}
+	?>
+</table>
