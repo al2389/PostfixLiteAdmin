@@ -27,6 +27,9 @@ Now, open the location http://YourWebServer/PostfixLiteAdmin and start to use it
 	
 
 
+----------
+
+
 #### Postfix & Dovecot queries ####
 /etc/postfix/sqlite_domains.cf
 
