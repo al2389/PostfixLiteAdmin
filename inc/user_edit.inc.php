@@ -28,7 +28,7 @@
 <table border='0'>
 	<tr><td>Editing User: </td><td><strong><?php echo $name ?></strong></td></tr>
 	<tr><td>Full Name: </td><td><input type='text' value='<?php echo $name ?>' name='name' /></td></tr>
-	<tr><td>User Name: </td><td><input type='text' value='<?php echo $local_part ?>' name='local_part' /></td></tr>
+	<tr><td>User Name: </td><td><input type='text' value='<?php echo $local_part ?>' name='local_part' readonly /></td></tr>
 	<tr><td>Domain: </td>
 		<td>
 			<select name='domain'>"

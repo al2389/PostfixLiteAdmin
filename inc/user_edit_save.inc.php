@@ -8,6 +8,7 @@ $domain = getDomainFromEmailId($email_id, 'domain');
 $paused = PAUSED;
 $referer = $_SESSION['referer_user'];
 
+
 if (userFieldsNotEmpty($dbHandle, $_POST['local_part'], $_POST['password'], $_POST['name'], $referer)){
   	$password = $_POST['password'];
   	if ($password !== NO_CHANGE_PW){
