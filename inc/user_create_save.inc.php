@@ -6,8 +6,8 @@ $domain_id = $_REQUEST['domain_id'];
 $domain = getDomainFieldFromId($domain_id, 'domain');
 $paused = PAUSED;
 
-if (empty($_POST['local_part']) or empty($_POST['password'])) {
-	echo "<h3>Username and Password should not be empty !</h3>";
+if (empty($_POST['local_part']) or empty($_POST['password']) or empty($_POST['name'])) {
+	echo "<h3>Username, Full Name and Password should not be empty !</h3>";
 	$paused = ERROR_PAUSE;
 } else {
 	$local_part = $_POST['local_part'];

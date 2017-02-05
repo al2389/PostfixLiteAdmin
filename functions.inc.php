@@ -71,4 +71,36 @@ function is_valid_domain_name($domain_name){
     return filter_var($emailAddr, FILTER_VALIDATE_EMAIL);
 }
 
+
+
+function checkUserAlias($dbHandle, $email_id, $email, $action, $referer){
+	$ret = false;
+	$paused = ERROR_PAUSE;
+	
+	// check if the user is alias to another ?
+	$q = "select goto from alias where email_id = $email_id";
+	$result = $dbHandle->query($q);
+	$entry = $result->fetch();
+	if ( $entry === false ){
+		$ret = true;
+	} else {
+		echo "<h3>Can't $action User when his/her alias exists !</h3>";
+	  	echo "<head><meta HTTP-EQUIV='REFRESH' content='$paused; url=$referer'></head>";
+	}
+
+	if ($ret){
+		$q = "select goto from alias where goto = '$email'";
+		$result = $dbHandle->query($q);
+		$entry = $result->fetch();
+		if ( $entry === false ){
+			$ret = true;
+		} else {
+			$ret = false;
+			echo "<h3>Can't $action User when other user is aliasing to he/her !</h3>";
+	  		echo "<head><meta HTTP-EQUIV='REFRESH' content='$paused; url=$referer'></head>";
+		}
+	}
+	return $ret;
+}
+
 ?>
