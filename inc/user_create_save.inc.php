@@ -5,11 +5,10 @@ if (!isset($_REQUEST['domain_id'])){
 $domain_id = $_REQUEST['domain_id'];
 $domain = getDomainFieldFromId($domain_id, 'domain');
 $paused = PAUSED;
+$referer = $_SESSION['referer_user'];
 
-if (empty($_POST['local_part']) or empty($_POST['password']) or empty($_POST['name'])) {
-	echo "<h3>Username, Full Name and Password should not be empty !</h3>";
-	$paused = ERROR_PAUSE;
-} else {
+
+if (userFieldsNotEmpty($dbHandle, $_POST['local_part'], $_POST['password'], $_POST['name'], $referer)){
 	$local_part = $_POST['local_part'];
 	$password = $_POST['password'];
   	$hashed = ssha512($password);
@@ -26,8 +25,8 @@ if (empty($_POST['local_part']) or empty($_POST['password']) or empty($_POST['na
 	    				 '$quota', datetime('NOW', 'localtime'), datetime('NOW', 'localtime'), '$active')";
 	$dbHandle->exec($insmailQuery);
 	echo "<h2>User Added.</h2>";
+	echo "<head><meta HTTP-EQUIV='REFRESH' content='$paused; url=$referer'></head>";
 }
-$referer = $_SESSION['referer_user'];
-echo "<head><meta HTTP-EQUIV='REFRESH' content='$paused; url=$referer'></head>";
+
 
 ?>

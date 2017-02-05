@@ -73,7 +73,7 @@ function is_valid_domain_name($domain_name){
 
 
 
-function checkUserAlias($dbHandle, $email_id, $email, $action, $referer){
+function checkUserAlias(&$dbHandle, $email_id, $email, $action, $referer){
 	$ret = false;
 	$paused = ERROR_PAUSE;
 	
@@ -99,6 +99,20 @@ function checkUserAlias($dbHandle, $email_id, $email, $action, $referer){
 			echo "<h3>Can't $action User when other user is aliasing to he/her !</h3>";
 	  		echo "<head><meta HTTP-EQUIV='REFRESH' content='$paused; url=$referer'></head>";
 		}
+	}
+	return $ret;
+}
+
+
+
+function userFieldsNotEmpty(&$dbHandle, $local_part, $password, $name, $referer){
+	$ret = true;
+	if (empty($local_part) or empty($password) or empty($name)){
+		$ret = false;
+		
+		$paused = ERROR_PAUSE;
+		echo "<h3>Username, Full Name and Password should not be empty !</h3>";
+		echo "<head><meta HTTP-EQUIV='REFRESH' content='$paused; url=$referer'></head>";
 	}
 	return $ret;
 }

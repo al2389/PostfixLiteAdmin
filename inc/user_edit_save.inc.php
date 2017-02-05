@@ -8,11 +8,7 @@ $domain = getDomainFromEmailId($email_id, 'domain');
 $paused = PAUSED;
 $referer = $_SESSION['referer_user'];
 
-if (empty($_POST['local_part']) or empty($_POST['password']) or empty($_POST['name'])) {
-	echo "<h3>Username, Full Name and Password should not be empty !</h3>";
-	$paused = ERROR_PAUSE;
-	echo "<head><meta HTTP-EQUIV='REFRESH' content='$paused; url=$referer'></head>";
-} else {
+if (userFieldsNotEmpty($dbHandle, $_POST['local_part'], $_POST['password'], $_POST['name'], $referer)){
   	$password = $_POST['password'];
   	if ($password !== NO_CHANGE_PW){
   		$hashed = ssha512($password);
