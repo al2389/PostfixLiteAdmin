@@ -30,7 +30,7 @@ Now, open the location http://YourWebServer/PostfixLiteAdmin and start to use it
 ----------
 
 
-#### Postfix & Dovecot queries ####
+#### Postfix & Dovecot queries :####
 /etc/postfix/sqlite_domains.cf
 
 	dbpath = /etc/postfix/sqlite-db/vmail.sqlite3
@@ -49,6 +49,9 @@ Now, open the location http://YourWebServer/PostfixLiteAdmin and start to use it
 
 /etc/dovecot/dovecot-sql.conf.ext
 
+	driver = sqlite
+	connect = /etc/postfix/sqlite-db/vmail.sqlite3
+	default_pass_scheme = SSHA512
 	password_query = SELECT password FROM mailbox WHERE email = '%u'
 	user_query = \
 		SELECT '/var/spool/mail/vmail/%d/%n' AS home, \
