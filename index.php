@@ -31,7 +31,7 @@ $(function(){
 		
 		session_start();
 		include_once('config.inc.php');
-			
+		
         try{
 			$dbHandle = new PDO("sqlite:$sqlite_dir/$sqlite_database");
 		}catch( PDOException $exception ){
