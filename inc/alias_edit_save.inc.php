@@ -18,7 +18,7 @@ if (empty($_POST['goto'])) {
   		if (isset($_POST['active']) and $_POST['active'] == 'on')  $active=1;
   		$updQuery = "UPDATE alias SET goto = '$goto', modified = datetime('NOW', 'localtime'), active = '$active' WHERE email_id = $email_id;";
   		$dbHandle->exec($updQuery);
-  		echo "<h2>Alias updated</h2>";
+  		echo "<h2>Alias updated.</h2>";
 	}
 }
 $referer = $_SESSION['referer_alias'];

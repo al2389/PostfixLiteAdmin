@@ -1,8 +1,5 @@
 <?php
 
-//include_once('../functions.inc.php');
-include_once(dirname(__FILE__).'/../functions.inc.php');		// to fix Windows relative path
-
 if (!isset($_REQUEST['email_id'])){
 	die("email_id is not passed.");
 }

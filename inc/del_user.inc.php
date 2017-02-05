@@ -1,5 +1,4 @@
 <?php
-include_once(dirname(__FILE__).'/../functions.inc.php');
 
 if (!isset($_REQUEST['email_id'])){
 	die("email_id is not passed.");

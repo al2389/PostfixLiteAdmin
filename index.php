@@ -39,7 +39,7 @@ $(function(){
     		die($exception->getMessage());
 		}
 		
-		include_once('functions.inc.php');
+		include_once('inc/functions.inc.php');
 		// check and create tables every time the page is accessed but not refered back by any inc file.
 		if (count($_REQUEST) == 0 and !isset($_SERVER['HTTP_REFERER']))
 			include_once('inc/database.inc.php');

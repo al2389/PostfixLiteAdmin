@@ -1,6 +1,5 @@
 <?php
 	if (!isset($_REQUEST['domain_id'])){
-		//$_REQUEST['domain'] = 'dead';
 		die("domain_id is not POSTed !");
 	}
 	$domain_id = $_REQUEST['domain_id'];
