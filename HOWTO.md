@@ -16,7 +16,7 @@
 
 Please make sure to issue the above ".database" command, otherwise the database may not be written to disk. 
 
-In order to make sqlite database editable, its containing directory should be writable. Also php should has the right to write the database.
+In order to make sqlite database editable, its containing directory should be writable. Also php should has the right to write the database :
 	
 	$ chown -R www-data:www-data /etc/postfix/sqlite-db
 	$ chmod 777 /etc/postfix/sqlite-db
