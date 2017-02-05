@@ -19,8 +19,8 @@ if (empty($_POST['goto'])) {
 		echo "<h3>\"$goto\" is not a valid email address !</h3>";
 		$paused = ERROR_PAUSE;
 	} else {
-	    $active = $_POST['active'];
-    	$active = ($active == 'on' ? 1 : 0);
+  		$active = 0;
+  		if (isset($_POST['active']) and $_POST['active'] == 'on')  $active=1;
     	$insQuery = "INSERT INTO alias (email_id, goto, created, modified, active )VALUES
     				 ($email_id, '$goto', datetime('NOW', 'localtime'), datetime('NOW', 'localtime'), '$active')";
     	$dbHandle->exec($insQuery);

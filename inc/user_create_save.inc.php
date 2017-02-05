@@ -16,8 +16,11 @@ if (empty($_POST['local_part']) or empty($_POST['password'])) {
 	
 	$name = $_POST['name'];
 	$quota = $_POST['quota'] * 1024;		// change MB to KB
-	$active = $_POST['active'];
-	if ($active == 'on') {$active='1';} else {$active='0';}
+	//$active = $_POST['active'];
+	//if ($active == 'on') {$active='1';} else {$active='0';}
+	$active = 0;
+  	if (isset($_POST['active']) and $_POST['active'] == 'on')  $active=1;
+  	
 	$insmailQuery = "INSERT INTO mailbox (email, password, name, maildir, local_part, domain_id, quota, created, modified, active) VALUES 
 	    				('$local_part@$domain', '$hashed', '$name', '$domain/$local_part@$domain/', '$local_part', '$domain_id',
 	    				 '$quota', datetime('NOW', 'localtime'), datetime('NOW', 'localtime'), '$active')";

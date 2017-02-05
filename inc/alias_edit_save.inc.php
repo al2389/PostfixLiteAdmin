@@ -14,8 +14,8 @@ if (empty($_POST['goto'])) {
 		echo "<h3>\"$goto\" is not a valid email address !</h3>";
 		$paused = ERROR_PAUSE;
 	} else {
-	  	$active_post = $_POST['active'];
-  		if ($active_post == 'on') {$active=1;} else {$active=0;}
+  		$active = 0;
+  		if (isset($_POST['active']) and $_POST['active'] == 'on')  $active=1;
   		$updQuery = "UPDATE alias SET goto = '$goto', modified = datetime('NOW', 'localtime'), active = '$active' WHERE email_id = $email_id;";
   		$dbHandle->exec($updQuery);
   		echo "<h2>Alias updated</h2>";

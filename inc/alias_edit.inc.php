@@ -27,13 +27,9 @@
 			<td><input type="text"  value='<?php echo $goto ?>' name="goto" /></td>
 			
 			<?php
-				//echo "<tr><td><input type='hidden' value='".$domain."' name='domain' /></td></tr>";
-				//echo "<tr><td><input type='hidden' value='".$email."' name='email' /></td></tr>";
-				
 				echo "<tr><td>Alias Active?: </td><td><input type='checkbox' $active name='active' /></td></tr>";
 				echo "<tr><td>Last Updated: </td><td>$modified</td></tr>";
 				echo "<tr><td>Created on: </td><td>$created</td></tr>";
-				//echo "<input type='submit' value='Update Alias' /></form>";
 			?>
 		</tr>
 	</table>

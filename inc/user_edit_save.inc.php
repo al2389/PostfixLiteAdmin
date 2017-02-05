@@ -21,8 +21,8 @@ if (empty($_POST['local_part']) or empty($_POST['password'])) {
   	$local_part = $_POST['local_part'];
   	$modified = $_POST['modified'];
   	$quota = $_POST['quota'] * 1024;	// MB to KB
-  	$active_post = $_POST['active'];
-  	if ($active_post == 'on') {$active=1;} else {$active=0;}
+  	$active = 0;
+  	if (isset($_POST['active']) and $_POST['active'] == 'on')  $active=1;
   	if ($password == NO_CHANGE_PW){
   		$updQuery = "UPDATE mailbox SET email = '$local_part@$domain', name = '$name', 
   						local_part = '$local_part', quota = '$quota', modified = '$modified', 
