@@ -23,7 +23,7 @@ In order to make sqlite database editable, its containing directory should be wr
 	$ chmod 644 /etc/postfix/sqlite-db/vmail.sqlite3
 
 
-Now, open the location http://YourWebServer/PostfixLiteAdmin and start to use it. Empty tables will be generated when you access the location first time.
+Now, open the location http://YourWebServer/PostfixLiteAdmin with your web browser and start to use it. Empty tables will be generated when you access the location first time.
 	
 
 
