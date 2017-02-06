@@ -96,7 +96,7 @@ function checkUserAlias(&$dbHandle, $email_id, $email, $action, $referer){
 			$ret = true;
 		} else {
 			$ret = false;
-			echo "<h3>Can't $action User when other user is aliasing to he/her !</h3>";
+			echo "<h3>Can't $action User when other user is aliasing to him/her !</h3>";
 	  		echo "<head><meta HTTP-EQUIV='REFRESH' content='$paused; url=$referer'></head>";
 		}
 	}
