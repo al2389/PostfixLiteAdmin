@@ -1,3 +1,9 @@
+This is a modified version of PostfixLiteAdmin based on the work from Mr. Matt Rude, original project location : https://github.com/mattrude/PostfixLiteAdmin. 
+
+
+----------
+
+
 PostfixLiteAdmin is a small project built to allow an administrator to manage a Postfix, SQLite email server threw a simple web interface.  This project is similer to the PostfixAdmin (http://postfixadmin.sourceforge.net/) but allows for SQLite support.
 
 Currently PostfixLiteAdmin is an alpha state and is not recommended for production use.
