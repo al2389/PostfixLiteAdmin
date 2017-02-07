@@ -87,7 +87,7 @@
 	}
 ?>
 <table class='table table-striped'>
-	<tr><td></td><td>Mails Alias To</td><td>Modified Last</td><td>Active</td><td></td><td></tr>
+	<tr><td></td><td>Mails Alias To</td><td>Modified Last</td><td>Active</td><td></td></tr>
 	
 	<?php 
 		$sqlShowAlias = "SELECT a.*, m.email FROM alias a, mailbox m 
@@ -102,8 +102,9 @@
 			$goto_post = $entry5['goto'];
 			$modified = $entry5['modified'];
 			$active = $entry5['active'];
-			if ($active == 1) {$active='check';} else {$active='del';}
-
+			//if ($active == 1) {$active='check';} else {$active='del';}
+            if ($active == 1) {$active='glyphicon-ok';$active_color='green';$switch_active='off';} else {$active='glyphicon-remove';$active_color='red';$switch_active='on';}
+			
 			$line_count++;
   			echo "<tr bgcolor='$row_color'>
   					<td>$line_count</td>
@@ -111,7 +112,7 @@
   						<a href='index.php?page=edit_alias&email_id=".$email_id."'>$goto_post</a>
   					</td>
   					<td><small>$modified<small></td>
-  					<td><center><div id=$active></div></center></td>
+  					<td><div style='color:$active_color;' class='glyphicon $active'></div></td>
   					<td>
   						<a href='index.php?page=del_alias&email_id=$email_id'><img border=0 src='images/icon_del.png'></a>
   					</td>
