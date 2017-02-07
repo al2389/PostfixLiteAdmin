@@ -1,8 +1,4 @@
 <?php
-
-	//include_once('../functions.inc.php');
-	include_once(dirname(__FILE__).'/../functions.inc.php');		// to fix Windows relative path
-
 	if (!isset($_REQUEST['domain_id'])){
 		die("domain_id is not passed.");
 	}
