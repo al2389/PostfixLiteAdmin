@@ -102,8 +102,7 @@
 			$goto_post = $entry5['goto'];
 			$modified = $entry5['modified'];
 			$active = $entry5['active'];
-			//if ($active == 1) {$active='check';} else {$active='del';}
-            if ($active == 1) {$active='glyphicon-ok';$active_color='green';$switch_active='off';} else {$active='glyphicon-remove';$active_color='red';$switch_active='on';}
+			if ($active == 1) {$active='glyphicon-ok';$active_color='green';$switch_active='off';} else {$active='glyphicon-remove';$active_color='red';$switch_active='on';}
 			
 			$line_count++;
   			echo "<tr bgcolor='$row_color'>
