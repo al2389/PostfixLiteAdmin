@@ -65,7 +65,7 @@
 		  $line_count++;
 		  echo "<tr bgcolor='$row_color'><td>$line_count</td>
 	  				<td><a href='index.php?page=edit_user&email_id=".$email_id."'>$name</a></td>
-	  				<td>$email</td><td>$quota</td><td><small>$modified<small></td>
+	  				<td>$email</td><td>$quota</td><td><small>$modified</small></td>
 	  				<td>
 	  					<center>
 	  						<!-- <a href='bin/activate_user.php?switch_active=$switch_active&email=$email&domain=$domain'> -->
@@ -121,7 +121,7 @@
 	  					<a href='index.php?page=edit_alias&email_id=$email_id'>$email</a>
 	  				</td>
 	  				<td>$goto</td>
-	  				<td><small>$modified<small></td>
+	  				<td><small>$modified</small></td>
   					<td>
   						<center>
   							<!-- <a href='bin/activate_alias.php?switch_active=$switch_active&email_id=$email_id'>  -->

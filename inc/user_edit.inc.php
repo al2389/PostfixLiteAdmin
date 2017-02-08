@@ -110,7 +110,7 @@
   					<td>
   						<a href='index.php?page=edit_alias&email_id=".$email_id."'>$goto_post</a>
   					</td>
-  					<td><small>$modified<small></td>
+  					<td><small>$modified</small></td>
   					<td><div style='color:$active_color;' class='glyphicon $active'></div></td>
   					<td>
   						<a href='index.php?page=del_alias&email_id=$email_id'><img border=0 src='images/icon_del.png'></a>
