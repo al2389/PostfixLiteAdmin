@@ -1,7 +1,7 @@
 <?php
 	if (!isset($_REQUEST['domain_id'])){
 		die("domain_id is not POSTed !");
-	}
+	} 
 	$domain_id = $_REQUEST['domain_id'];
 
 	$sqlShowBlocked = "SELECT * FROM domain WHERE domain_id = $domain_id;";

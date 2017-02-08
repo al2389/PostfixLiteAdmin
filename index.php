@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 <!-- Latest compiled and minified CSS -->
@@ -35,8 +36,13 @@ $(function(){
         try{
 			$dbHandle = new PDO("sqlite:$sqlite_dir/$sqlite_database");
 		}catch( PDOException $exception ){
-			echo "Can NOT connect to database : $sqlite_dir/$sqlite_database </br>";
-    		die($exception->getMessage());
+			echo "Can NOT connect to database : $sqlite_dir/$sqlite_database <br>";
+			echo "Please check if :<br>";
+			echo " 1. the path to the database is correct. <br>";
+			echo " 2. the permission of $sqlite_database is accessible by php. <br>";
+			echo " 3. the php module 'php7.0-sqlite3' or 'php5-sqlite3' has been installed. <br>";
+			echo "<br>";
+    		die("Error : ". $exception->getMessage());
 		}
 		
 		include_once('inc/functions.inc.php');
