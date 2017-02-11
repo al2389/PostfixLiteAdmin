@@ -1,4 +1,4 @@
-This is a modified version of PostfixLiteAdmin (Postfix sqlite GUI admin) based on the work from Mr. Matt Rude, original project location : https://github.com/mattrude/PostfixLiteAdmin. 
+This is a modified version of PostfixLiteAdmin (Postfix sqlite web admin) based on the work from Mr. Matt Rude, original project location : https://github.com/mattrude/PostfixLiteAdmin. 
 
 
 ----------
