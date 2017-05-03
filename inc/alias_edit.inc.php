@@ -24,7 +24,7 @@
 		<tr><td>Email Address: </td><td><strong><?php echo $email ?></strong></td></tr>
 		<tr>
 			<td>Send Mail To: </td>
-			<td><input type="text"  value='<?php echo $goto ?>' name="goto" /></td>
+			<td><input type="text"  value='<?php echo $goto ?>' name="goto" style="width: 500px;" /></td>
 			
 			<?php
 				echo "<tr><td>Alias Active?: </td><td><input type='checkbox' $active name='active' /></td></tr>";

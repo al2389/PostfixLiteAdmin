@@ -64,8 +64,6 @@ $(function(){
 		    	require_once('inc/domain_edit.inc.php');
 		  	} elseif ($_GET['page'] == 'edit_domain_save') {
 		    	require_once('inc/domain_edit_save.inc.php');
-		  	} elseif ($_GET['page'] == 'add_domain') {
-		    	require_once('inc/add_domain.inc.php');
 		  	} elseif ($_GET['page'] == 'edit_user') {
 		    	require_once('inc/user_edit.inc.php');
 		  	} elseif ($_GET['page'] == 'edit_user_save') {

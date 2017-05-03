@@ -117,4 +117,24 @@ function userFieldsNotEmpty(&$dbHandle, $local_part, $password, $name, $referer)
 	return $ret;
 }
 
+
+
+
+function verifyAliasAddress(&$goto){
+    $valid = true;
+    $goto = str_replace(',', ' ', $goto);
+    for($i=0; $i<3; $i++){
+        $goto = str_replace('  ', ' ', $goto);
+    }
+    $destEmail = explode(' ',$goto);
+    foreach($destEmail as $m){
+        if (!empty($m) and ! filter_var($m, FILTER_VALIDATE_EMAIL)){
+            $valid = false;
+            exit;
+        }
+    }
+    return $valid;
+}
+
+
 ?>

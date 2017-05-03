@@ -12,8 +12,10 @@ if (empty($_POST['goto'])) {
 } else {
 	$email = $_POST['email_id'];
     $goto = $_POST['goto'];
-	if (! filter_var($goto, FILTER_VALIDATE_EMAIL)){
-		echo "<h3>\"$goto\" is not a valid email address !</h3>";
+    
+    $valid = verifyAliasAddress($goto);
+	if ($valid === false){
+		echo "<h3>\"$goto\" contains invalid email address(es) !</h3>";
 		$paused = ERROR_PAUSE;
 	} else {
   		$active = 0;

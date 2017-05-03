@@ -38,7 +38,7 @@
 	</tr>
 	<tr>
 		<td>Send Mail To: </td>
-		<td><input type="text" name="goto" /></td>
+		<td><input type="text" name="goto" style="width: 500px;"/></td>
 	</tr>
 
 	<tr>
