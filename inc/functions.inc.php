@@ -130,7 +130,7 @@ function verifyAliasAddress(&$goto){
     foreach($destEmail as $m){
         if (!empty($m) and ! filter_var($m, FILTER_VALIDATE_EMAIL)){
             $valid = false;
-            exit;
+            break;
         }
     }
     return $valid;
