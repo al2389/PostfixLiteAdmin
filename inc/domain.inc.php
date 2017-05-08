@@ -107,6 +107,7 @@
 		while ($entry5 = $result5->fetch()) {
 	  		$row_color = ($line_count2 % 2) ? $color1 : $color2;
 	  		$email = $entry5['email'];
+            $email_id = $entry5['email_id'];
 	  		$goto_post = $entry5['goto'];
 	  		//$domain = $entry5['domain'];
 	  		$modified = $entry5['modified'];
